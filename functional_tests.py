@@ -12,6 +12,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_table_list')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith ouviu falar sobre uma nova aplicação legal para to-do lists.
         # Ela vai checar sua homepage
@@ -36,10 +41,7 @@ class NewVisitorTest(unittest.TestCase):
         # Quando ela digita enter, a página atualiza, agora pagina exibe
         # "1: Comprar penas de pavão" como um item em uma lista to-do
         inputbox.send_keys(Keys.ENTER)
-
-        table = self.browser.find_element_by_id('id_table_list')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # Ainda tem uma caixa de texto convidando-a para adicionar outro item.
         # Ela entra com "Usar penas para fazer uma mosca" (Edith é metódica)
@@ -48,13 +50,8 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # A página atualiza novamente, agora exibe ambos itens na lista
-        table = self.browser.find_element_by_id('id_table_list')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
-        self.assertIn(
-            '2: Use peacocks to make a fly',
-            [row.text for row in rows]
-        )
+        self.check_for_row_in_list_table('1: Buy peacock feathers')
+        self.check_for_row_in_list_table('2: Use peacocks to make a fly')
 
         # Edith se pergunta se o site vai lembrar da sua lista. Então ela vê
         # que o site tem uma url gerada para ela -- há algum texto explicativo
