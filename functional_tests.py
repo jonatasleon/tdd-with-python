@@ -39,20 +39,27 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_table_list')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(rows.text == '1: Buy peacock feathers' for row in rows),
-            'New to-do item did not appear in table'
-        )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
         # Ainda tem uma caixa de texto convidando-a para adicionar outro item.
         # Ela entra com "Usar penas para fazer uma mosca" (Edith é metódica)
-        self.fail('Finish the test')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacocks to make a fly')
+        inputbox.send_keys(Keys.ENTER)
 
         # A página atualiza novamente, agora exibe ambos itens na lista
+        table = self.browser.find_element_by_id('id_table_list')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn(
+            '2: Use peacocks to make a fly',
+            [row.text for row in rows]
+        )
 
         # Edith se pergunta se o site vai lembrar da sua lista. Então ela vê
         # que o site tem uma url gerada para ela -- há algum texto explicativo
         # para este efeito
+        self.fail('Finish the test')
 
         # Ela visita essa URL - a lista dela ainda está lá
 
