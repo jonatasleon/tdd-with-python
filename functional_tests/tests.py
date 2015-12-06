@@ -41,6 +41,8 @@ class NewVisitorTest(LiveServerTestCase):
         # Quando ela digita enter, a página atualiza, agora pagina exibe
         # "1: Comprar penas de pavão" como um item em uma lista to-do
         inputbox.send_keys(Keys.ENTER)
+        edith_list_url = self.browser.current_url
+        self.assertRegex(edith_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # Ainda tem uma caixa de texto convidando-a para adicionar outro item.
@@ -53,11 +55,33 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacocks to make a fly')
 
-        # Edith se pergunta se o site vai lembrar da sua lista. Então ela vê
-        # que o site tem uma url gerada para ela -- há algum texto explicativo
-        # para este efeito
-        self.fail('Finish the test')
+        # Agora um novo usuário, Francis, vem para o site
 
-        # Ela visita essa URL - a lista dela ainda está lá
+        # Nós usamos um novo sessão no navegador para ter certeza que nenhuma #
+        # informação de Edith está vindo através de cookies etc #
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
 
-        # Satisfeita ela volta a dormir
+        # Francis visita a home page. Não há nenhum sinal da lista da Edith
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('Buy peacock feathers', page_text)
+        self.assertNotIn('make a fly', page_text)
+
+        # Francis começa uma nova lista entrando com um novo item. Ele é menos
+        # interessante do que Edith...
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Buy milk')
+        inputbox.send_keys(Keys.ENTER)
+
+        # Francis recebe sua própria URL
+        francis_list_url = self.browser.current_url
+        self.assertRegex(francis_list_url, '/lists/.+')
+        self.assertNotEqual(francis_list_url, edith_list_url)
+
+        # De novo, não há nem rastro da list de Edith
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('Buy peacock feathers', page_text)
+        self.assertIn('Buy milk', page_text)
+
+        # Satisfeitos eles voltam a dormir
