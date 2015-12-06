@@ -73,14 +73,14 @@ function run-resetdatabase {
 }
 
 function produce_alias {
-    echo "------------------------------------------------------------------------"
+    echo "----------------------------------------------------------------------"
     echo "The following command create an alias that you can use"
     echo "to goes on dev enviroment to this project from anywhere to to you bash."
     echo "Suggestion 1: add in your ~/.bashrc"
     echo "Suggestion 2: Change the alias name to anything more appropriate"
-    echo "------------------------------------------------------------------------"
+    echo "----------------------------------------------------------------------"
     echo_green "alias tddproject='cd $(readlink -e $PROJ_BASE) && . dev.sh tddpython'"
-    echo "------------------------------------------------------------------------"
+    echo "----------------------------------------------------------------------"
 }
 
 function echo_red {
@@ -102,7 +102,7 @@ function now_milis {
 function dorun {
     cmd="$1"
     name="$2"
-    echo ----------------------------------
+    echo ----------------------------------------------------------------------
     echo_green "STARTING $name ..."
     echo "$cmd"
     t1=$(now_milis)
@@ -113,15 +113,15 @@ function dorun {
     if [ $exitcode == 0 ]
     then
         echo_green "FINISHED $name in $delta_t ms"
-        echo ----------------------------------
+        echo ----------------------------------------------------------------------
     else
         echo_red "ERROR: $name (status: $exitcode, time: $delta_t ms)"
-        echo ----------------------------------
+        echo ----------------------------------------------------------------------
         return $exitcode
     fi
 }
 
 echo_green "Welcome Jonatas Leon" # Change this for a friendliest welcome message
 echo_green "Hint: autocomplete works with the following commands"
-echo_red   "------------------------------------------------------------------------"
+echo_red   "----------------------------------------------------------------------"
 devhelp
