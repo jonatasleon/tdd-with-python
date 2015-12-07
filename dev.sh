@@ -33,6 +33,8 @@ function devhelp {
     echo -e ""
     echo -e "${GREEN}run-resetdatabase${RESTORE}     ${RED}Reset${RESTORE} the database"
     echo -e ""
+    echo -e "${GREEN}run-makemigrations${RESTORE}    Run ${RED}makemigrations${RESTORE}"
+    echo -e ""
 }
 
 function run-unittest {
@@ -56,7 +58,7 @@ function run-functionaltest {
 function run-djangoserver {
     CD=$(pwd)
     cd $PROJ_BASE
-    dorun "./manage.py runserver" "Servidor django"
+    dorun "./manage.py runserver" "Django Server"
     exitcode=$?
     cd $CD
     return $exitcode
@@ -67,6 +69,15 @@ function run-resetdatabase {
     cd $PROJ_BASE
     dorun "rm db.sqlite3" "Removing Database"
     dorun "./manage.py migrate --noinput" "Migrating Database"
+    exitcode=$?
+    cd $CD
+    return $exitcode
+}
+
+function run-makemigrations {
+    CD=$(pwd)
+    cd $PROJ_BASE
+    dorun "./manage.py makemigrations" "Making Migrations"
     exitcode=$?
     cd $CD
     return $exitcode
