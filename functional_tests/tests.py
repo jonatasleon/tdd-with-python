@@ -52,8 +52,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # A página atualiza novamente, agora exibe ambos itens na lista
-        self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacocks to make a fly')
+        self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # Agora um novo usuário, Francis, vem para o site
 
