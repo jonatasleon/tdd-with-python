@@ -1,0 +1,21 @@
+{
+  "name": "superlists",
+  "homepage": "https://github.com/jonatasleon/tdd-with-python",
+  "authors": [
+    "Jonatas Leon <jonatas.leon@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
