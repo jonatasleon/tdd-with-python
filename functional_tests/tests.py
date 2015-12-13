@@ -22,7 +22,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Ela vai checar sua homepage
         self.browser.get(self.live_server_url)
 
-        # Ela percebe que o titulo e o heeader da pagina mencionam To-do lists
+        # Ela percebe que o titulo e o header da pagina mencionam To-do lists
         self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
@@ -85,3 +85,16 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # Satisfeitos eles voltam a dormir
+
+    def test_layout_and_styling(self):
+        # Ela vai checar sua homepage
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # Ela nota que a caixa de texto está muito bem centralizada
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=5
+        )
