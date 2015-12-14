@@ -1,2 +1,4 @@
 Django==1.7
 selenium==2.48.0
+Django==1.7
+selenium==2.48.0
