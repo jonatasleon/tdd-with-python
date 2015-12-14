@@ -1,4 +1,4 @@
 db.sqlite3
 __pycache__
 *.pyc
-lists/static/bower_components
+commom-static/bc
