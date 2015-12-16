@@ -5,6 +5,7 @@ RED='\033[00;31m'
 GREEN='\033[00;32m'
 YELLOW='\e[0;33m'
 
+ENV_NAME=${1}
 
 # No one deserves to have to stay decorating command
 # Instructions:
@@ -12,7 +13,7 @@ YELLOW='\e[0;33m'
 # 2) "devhelp"
 # 3) Be happy
 
-workon ${1}
+workon $ENV_NAME
 
 export PROJ_BASE="$(dirname ${BASH_SOURCE[0]})"
 CD=$(pwd)
@@ -34,6 +35,8 @@ function devhelp {
     echo -e "${GREEN}run-resetdatabase${RESTORE}     ${RED}Reset${RESTORE} the database"
     echo -e ""
     echo -e "${GREEN}run-makemigrations${RESTORE}    Run ${RED}makemigrations${RESTORE}"
+    echo -e ""
+    echo -e "${GREEN}produce-alias${RESTORE}         Show an ${RED}alias${RESTORE} for this projects"
     echo -e ""
 }
 
@@ -83,14 +86,14 @@ function run-makemigrations {
     return $exitcode
 }
 
-function produce_alias {
+function produce-alias {
     echo "----------------------------------------------------------------------"
     echo "The following command create an alias that you can use"
     echo "to goes on dev enviroment to this project from anywhere to to you bash."
     echo "Suggestion 1: add in your ~/.bashrc"
     echo "Suggestion 2: Change the alias name to anything more appropriate"
     echo "----------------------------------------------------------------------"
-    echo_green "alias tddproject='cd $(readlink -e $PROJ_BASE) && . dev.sh tddpython'"
+    echo_green "alias gotoproject='cd $(readlink -e $PROJ_BASE) && . dev.sh $ENV_NAME'"
     echo "----------------------------------------------------------------------"
 }
 
