@@ -1,7 +1,12 @@
 language: python
 python:
-    - "3.3"
-    - "3.4"
-install: "pip install -r requirements.txt"
+- '3.3'
+- '3.4'
+install: pip install -r requirements.txt
 script:
-    - "./manage.py test lists"
+- ./manage.py test lists
+deploy:
+  provider: heroku
+  api_key:
+    secure: gNvnFAee44CCf0C0fReM0b1+CcxJMLYWzAM+P7ltDtfRW8CvSsXbN43DSwSCdBPJ//sCOkzfsmHz1M5rjdSYdm/aHYwKHzmlU4yUKRmdpkUl7lDGhy6zjCCcf7K/tMhMU/r3MqTQqwOTu3lUgASR+z1BfJWGrn0W+QLseh3njOapMOusRLLaIikMOXleaiolaMMopWIWUXGBkZrGZ3hp7w8Kg08lEbTVUj60RdkWPqhSYqwVQa2rXicIvADzf7dEvy9Fy3wg/YUsMPyyQUrnOz4MpIkLPEstT2fRTksX3j3SKaYhCyk4HME/PZeM1AezdprXaKIr1Am4+ADYqTTbZ1R0Wmd7dMOWpMWUNw83j376z7cY/m720q1AIVIb0s2Gj/EWw8L+SnthZQqbpl+3NItfazc+5XygaIH6Y+l6Hk5k9OnOdDd+FsuV0jxTi55WnHz7RcZTx8yN5w/SI1XZjl10tptpmvDphf/F5gF9XAI1MBH87Ubx1zrWpDDNfeRyErM7LFduaUbvFI9t7PsNzbqqnZ9BekrVEZJpEQzPgtS1Cz2fkH+A6vbEp4hLLL4CKd6pzTft14Jgg3theuOulvz5FG7iiIlOr2B0sgkz4OJQzC0wSPkS796I/rmfhNldBJephvBkDOxwT67jKmdO1DVt0XsUQZKNVJoKF4ZOSB4=
+    on: master
