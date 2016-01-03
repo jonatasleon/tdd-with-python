@@ -9,7 +9,7 @@ ENV_NAME=${1}
 
 # No one deserves to have to stay decorating command
 # Instructions:
-# 1) ". dev.sh 'nome do virtualenv'"
+# 1) ". dev.sh < virtualenv's name >"
 # 2) "devhelp"
 # 3) Be happy
 
